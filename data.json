@@ -1,0 +1,12 @@
+{
+    "accounts": [
+        {
+            "login": "maria",
+            "password": "1233",
+            "url": "https://chat.deepseek.com/a/chat/s/acaa9bb7-42c2-4858-8a53-a22e9ddb809b",
+            "createdAt": "2025-03-27T20:17:05.0419589+03:00",
+            "updatedAt": "2025-03-27T20:17:05.0419589+03:00"
+        }
+    ],
+    "updatedAt": "2025-03-27T20:17:05.045429+03:00"
+}
