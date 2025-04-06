@@ -10,14 +10,16 @@ import (
 
 func main() {
 	fmt.Println("Приложение паролей")
+	vault := account.NewVault()
+
 Menu:
 	for {
 		variant := getMenu()
 		switch variant {
 		case 1:
-			CreateAccount()
+			CreateAccount(vault)
 		case 2:
-			FindAccount()
+			FindAccount(vault)
 		case 3:
 			DeleteAccount()
 		default:
@@ -62,7 +64,7 @@ func getMenu() int {
     }
 }
 
-func CreateAccount() {
+func CreateAccount(vault *account.Vault) {
 	login := promptData("Введите логин")
 	password := promptData("Введите пароль")
 	url := promptData("Введите URL")
@@ -72,19 +74,25 @@ func CreateAccount() {
 		return
 	}
 
-	vault := account.NewVault() // Создаём хранилище
 	vault.AddAccount(*myAccount) // Добавляем аккаунт
-
+	
 	data, err := vault.ToBytes() // Конвернтируем в JSON
 	if err != nil {
 		fmt.Println("Не удалось преобразовать в JSON")
 		return
 	}
-	files.WriteFile(string(data), "data.json") // Сохраняем в файл
+	files.WriteFile(data, "data.json") // Сохраняем в файл
 }
 
-func FindAccount() {
-
+func FindAccount(vault *account.Vault) {
+	url := promptData("Введите URL для поиска")
+	accounts := vault.FindAccountByUrl(url)
+	if len(accounts) == 0 {
+		fmt.Println("Аккаунт не найден")
+	}
+	for _, account := range accounts{
+		account.Output()
+	}
 }
 
 func DeleteAccount() {

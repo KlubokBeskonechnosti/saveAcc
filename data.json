@@ -6,7 +6,14 @@
             "url": "https://chat.deepseek.com/a/chat/s/acaa9bb7-42c2-4858-8a53-a22e9ddb809b",
             "createdAt": "2025-03-27T20:17:05.0419589+03:00",
             "updatedAt": "2025-03-27T20:17:05.0419589+03:00"
+        },
+        {
+            "login": "a@q.ru",
+            "password": "ufvKRcqlJOgB",
+            "url": "http://a.ru",
+            "createdAt": "2025-04-06T19:06:31.6133393+03:00",
+            "updatedAt": "2025-04-06T19:06:31.6133393+03:00"
         }
     ],
-    "updatedAt": "2025-03-27T20:17:05.045429+03:00"
+    "updatedAt": "2025-04-06T19:06:31.6727679+03:00"
 }
