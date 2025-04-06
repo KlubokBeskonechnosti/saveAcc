@@ -27,24 +27,6 @@ Menu:
 
 }
 
-// func promptData(prompt string) string {
-// 	fmt.Println(prompt + ": ")
-// 	var res string
-// 	fmt.Scanln(&res)
-// 	return res
-// }
-
-// func getMenu() int {
-// 	var variant int
-// 	fmt.Println("Выберите вариант:")
-// 	fmt.Println("1. Создать аккаунт")
-// 	fmt.Println("2. Найти аккаунт")
-// 	fmt.Println("3. Удалить аккаунт")
-// 	fmt.Println("4. Выход")
-// 	fmt.Scan(&variant)
-// 	return variant
-// }
-
 func promptData(prompt string) string {
     fmt.Print(prompt + ": ")
     scanner := bufio.NewScanner(os.Stdin)
@@ -90,15 +72,15 @@ func CreateAccount() {
 		return
 	}
 
-	vault := account.NewVault()
-	vault.AddAccount(*myAccount)
+	vault := account.NewVault() // Создаём хранилище
+	vault.AddAccount(*myAccount) // Добавляем аккаунт
 
-	data, err := vault.ToBytes()
+	data, err := vault.ToBytes() // Конвернтируем в JSON
 	if err != nil {
 		fmt.Println("Не удалось преобразовать в JSON")
 		return
 	}
-	files.WriteFile(string(data), "data.json")
+	files.WriteFile(string(data), "data.json") // Сохраняем в файл
 }
 
 func FindAccount() {

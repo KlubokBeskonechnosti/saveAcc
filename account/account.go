@@ -3,58 +3,56 @@ package account
 import (
 	"errors"
 	"fmt"
+	"math/rand/v2"
 	"net/url"
 	"time"
-	"math/rand/v2"
 	// "bufio"
 	// "os"
 	// "strings"
 )
 
 type Account struct {
-    Login     string    `json:"login"`
-    Password  string    `json:"password"`
-    URL       string    `json:"url"`
-    CreatedAt time.Time `json:"createdAt"`
-    UpdatedAt time.Time `json:"updatedAt"`
+	Login     string    `json:"login"` // сериализуется в JSON
+	Password  string    `json:"password"`
+	URL       string    `json:"url"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 func (acc *Account) OutputPassword() {
-    fmt.Println(acc.Login, acc.Password, acc.URL)
+	fmt.Println(acc.Login, acc.Password, acc.URL)
 }
 
 func (acc *Account) generatePassword(n int) {
-    res := make([]rune, n)
-    for i := range res {
-        res[i] = lettersRune[rand.IntN(len(lettersRune))]
-    }
-    acc.Password = string(res)
+	res := make([]rune, n)
+	for i := range res { // Заполняет случайными символами
+		res[i] = lettersRune[rand.IntN(len(lettersRune))]
+	}
+	acc.Password = string(res) // Сохраняет пароль
 }
 
 func NewAccountWithTimeStamp(login, password, urlString string) (*Account, error) {
-    if login == "" {
-        return nil, errors.New("INVALID_LOGIN")
-    }
-    _, err := url.ParseRequestURI(urlString)
-    if err != nil {
-        return nil, errors.New("INVALID URL")
-    }
-    
-    newAcc := &Account{
-        Login:     login,
-        Password:  password,
-        URL:       urlString,
-        CreatedAt: time.Now(),
-        UpdatedAt: time.Now(),
-    }
-    
-    if password == "" {
-        newAcc.generatePassword(12)
-    }
-    
-    return newAcc, nil
+	if login == "" {
+		return nil, errors.New("INVALID_LOGIN")
+	}
+	_, err := url.ParseRequestURI(urlString)
+	if err != nil {
+		return nil, errors.New("INVALID URL")
+	}
+
+	newAcc := &Account{ // Создает аккаунт
+		Login:     login,
+		Password:  password,
+		URL:       urlString,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
+	}
+
+	if password == "" { // Если пароль не введен
+		newAcc.generatePassword(12) // Генерирует случайный
+	}
+
+	return newAcc, nil
 }
 
 var lettersRune = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-
-
